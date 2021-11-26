@@ -53,4 +53,11 @@ public class UserDaoHibernateImpl implements UserDao {
     public List<User> getUsers() {
         return em.createQuery("select u from User u", User.class).getResultList();
     }
+
+
+    @Override
+    public User getUserByName(String username) {
+        return em.createQuery("select u from User u where u.name=:username",
+                User.class).setParameter("username", username).getSingleResult();
+    }
 }

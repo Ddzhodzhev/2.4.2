@@ -1,34 +1,37 @@
 package web.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.dao.UserDao;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public UserController(UserService userService) {
+    @Autowired
+    public UserController(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
-    //показ всех пользователей
     @GetMapping("/")
-    public String allUsers(Model model) {
-        model.addAttribute("getUsers", userService.getUsers());
-        return "/all";
+    public String loginPage(){
+        return "redirect:/login";
     }
 
-    //показать одного юзера
-    @GetMapping("/{id}")
-    public String getUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.readUser(id));
-        return "/show";
+    @GetMapping("/user")
+    public String userPage(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        model.addAttribute("roles",user.getRoles());
+        return "userp";
     }
 
     //сохранение
