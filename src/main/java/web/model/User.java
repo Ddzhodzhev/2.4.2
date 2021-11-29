@@ -8,17 +8,19 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String username;
     private String lastName;
     private int age;
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER) //Жадная загрузка списка ролей
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "roles_id"))
@@ -29,7 +31,7 @@ public class User implements UserDetails {
     }
 
     public User(String name, String lastName, Byte age, Set <Role> roles) {
-        this.name = name;
+        this.username = name;
         this.lastName = lastName;
         this.age = age;
         this.roles=roles;
@@ -43,12 +45,8 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getLastName() {
@@ -82,11 +80,11 @@ public class User implements UserDetails {
     @Override
     public String toString() {
         return "User id = " + id +
-                " name = " + name +
+                " name = " + username +
                 " lastName = " + lastName +
                 "  age = " + age;
     }
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -99,7 +97,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
@@ -125,3 +123,4 @@ public class User implements UserDetails {
 
 
 }
+

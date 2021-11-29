@@ -7,9 +7,7 @@ import java.util.List;
 public interface RoleService {
     void createRole(Role role);
 
-    Role readRole(int id);
-
-    void updateRole(Long id, String role);
+    void updateRole(Role role);
 
     void removeRole(int id);
 

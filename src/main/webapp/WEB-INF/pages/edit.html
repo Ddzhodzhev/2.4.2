@@ -5,17 +5,34 @@
     <title>Edit person</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
-    <label for="name">Name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+<form method="post" th:id="updateUser" action="#" th:action="@{/admin/edit}" th:object="${user}"
+      th:method="post">
+    <th>Name</th>
+    <td><input type="text" th:field="*{username}" th:placeholder="${user.getUsername()}"></td>
     <br><br>
-    <label for="lastName">LastName: </label>
-    <input type="text" th:field="*{lastName}" id="lastName"/>
+    <th>Id</th>
+        <td><input type="text" th:field="*{id}" th:placeholder="${user.getId()}" readonly></td>
     <br><br>
-    <label for="age">Age: </label>
-    <input type="text" th:field="*{age}" id="age"/>
+        <th>Last Name</th>
+        <td><input type="text" th:field="*{lastName}" th:placeholder="${user.getLastName()}"></td>
     <br><br>
-    <input type="submit" value="Update"/>
+
+    <th>Age</th>
+        <td><input type="text" th:field="*{age}" th:placeholder="${user.getAge()}"></td>
+    <br><br>
+
+    <th>Password</th>
+        <td><input type="password" th:field="*{password}"></td>
+    <br><br>
+
+    <th>Role</th>
+    <input type="checkbox" name="checkBoxRoles" value="ROLE_USER"/>USER
+    <input type="checkbox" name="checkBoxRoles" value="ROLE_ADMIN"/>ADMIN
+    <br><br>
+    <th>Update User</th>
+            <button type="submit" th:form="updateUser">Update</button>
+        </td>
+
 </form>
 </body>
 </html>

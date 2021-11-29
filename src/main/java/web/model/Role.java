@@ -2,12 +2,11 @@ package web.model;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
     public Role() {
     }
@@ -16,22 +15,31 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String role;
-
-    public Role(Long id, String role) {
+    public Role(int id, String role) {
         this.id = id;
         this.role = role;
     }
 
-    public Long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "role")
+    private String role;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    @Override
+    public String toString() {
+        return role;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,8 +51,17 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
     @Override
     public String getAuthority() {
-        return role;
+        return getRole();
     }
 }
+
