@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ru.nlq.crud_springsecurity242</groupId>
-  <artifactId>CRUD_security</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <groupId>ru.nlq.crud2.4.2</groupId>
+  <artifactId>2.4.2</artifactId>
+  <version>1.0</version>
   <packaging>war</packaging>
 
   <properties>
