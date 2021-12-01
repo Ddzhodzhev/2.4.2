@@ -47,30 +47,6 @@ public class UserController {
         return "userp";
     }
 
-    @GetMapping("/user/{id}/edit")
-    public String editU(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.readUser(id));
-        model.addAttribute("roles", roleService.getRoles());///
-        return "editForUser";
-    }
-
-    @PostMapping("/user/edit")
-    public String updateU(@ModelAttribute("user") User user, @RequestParam(value = "checkBoxRoles") String[] checkBoxRoles) {
-        Set<Role> roleSet = new HashSet<>();
-        for(String role:checkBoxRoles){
-            roleSet.add(roleService.getRoleByName(role));
-        }
-        user.setRoles(roleSet);
-        userService.updateUser(user);
-        return "redirect:/user";
-    }
-
-    @PostMapping("/user/delete/{id}")
-    public String deleteU(@PathVariable("id") int id) {
-        userService.deleteUser(id);
-        return "redirect:/logout";
-    }
-
 
     @DeleteMapping("/user/delete/{id}")
     public String deleteU2(@PathVariable("id") int id) {
@@ -123,13 +99,6 @@ public class UserController {
         userService.updateUser(user);
         return "redirect:/admin";
     }
-
-    @PostMapping("/admin/delete/{id}")
-    public String delete1(@PathVariable("id") int id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
 
     @DeleteMapping("/admin/delete/{id}")
     public String delete2(@PathVariable("id") int id) {
